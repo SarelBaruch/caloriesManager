@@ -19,7 +19,7 @@ const usersRouter = require('./routes/users');
 // Mongo
 const mongoose = require('mongoose');
 const mongoUrl = 'mongodb+srv://sarelb25:sarel@caloriemanager.c5xsgj4.mongodb.net/?retryWrites=true&w=majority&appName=calorieManager';
-mongoose.connect(mongoUrl, { dbName: 'calorieManager'})
+mongoose.connect(mongoUrl, { dbName: 'calorieManager', serverSelectionTimeoutMS: 30000})
   .then(() => console.log('Connected to mongodb'))
   .catch((err) => console.log(err));
 mongoose.Promise = global.Promise;
