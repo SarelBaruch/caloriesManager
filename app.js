@@ -1,3 +1,5 @@
+require('dotenv').config(); // Add this line at the top of your app.js
+
 //Sarel Israel Baruch 314753666
 //Ziv Ashkenazi 318778255
 
@@ -18,10 +20,10 @@ const usersRouter = require('./routes/users');
 
 // Mongo
 const mongoose = require('mongoose');
-const mongoUrl = 'mongodb+srv://sarelb25:sarel@caloriemanager.c5xsgj4.mongodb.net/?retryWrites=true&w=majority&appName=calorieManager';
-mongoose.connect(mongoUrl, { dbName: 'calorieManager' })
-  .then(() => console.log('Connected to mongodb'))
-  .catch((err) => console.log(err));
+const mongoUrl = process.env.MONGODB_URI || 'mongodb+srv://sarelb25:sarel@caloriemanager.c5xsgj4.mongodb.net/?retryWrites=true&w=majority&appName=calorieManager';
+mongoose.connect(mongoUrl, { dbName: 'calorieManager', useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Connected to mongodb'))
+    .catch((err) => console.log(err));
 mongoose.Promise = global.Promise;
 
 // View engine setup
@@ -36,9 +38,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // App routes
-   app.use('/', caloriesRouter);
-   app.use('/', reportRouter);
-   app.use('/', aboutRouter);
-   app.use('/', usersRouter);
+app.use('/', caloriesRouter);
+app.use('/', reportRouter);
+app.use('/', aboutRouter);
+app.use('/', usersRouter);
 
 module.exports = app;
