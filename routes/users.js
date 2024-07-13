@@ -16,8 +16,10 @@ router.get('/users/:id', function(req, res) {
             res.status(400).send('No users found.');
             return;
         }
+        const {id, first_name, last_name, birthday} = users[0];
+        const user = {id, first_name, last_name, birthday};
         //Response in JSON format
-        res.status(200).json(users);
+        res.status(200).json(user);
 
     }).catch((err) => {
         console.log(err);
